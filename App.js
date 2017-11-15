@@ -9,6 +9,7 @@ import { Constants } from 'expo'
 import { TabNavigator, StackNavigator } from 'react-navigation'
 import Decks from './components/Decks'
 import DeckDetail from './components/DeckDetail'
+import AddDeck from './components/AddDeck'
 
 function MyStatusBar ({ backgroundColor, ...props }) {
     return (
@@ -18,23 +19,15 @@ function MyStatusBar ({ backgroundColor, ...props }) {
     )
 }
 
-function NewDeck () {
-    return (
-        <View style={styles.container}>
-            <Text>Add New Deck Here</Text>
-        </View>
-    )
-}
-
 const Tabs = TabNavigator({
     Decks: {
         screen: Decks,
         navigationOptions: {
-            tabBarLabel: 'Deck',
+            tabBarLabel: 'Decks',
         }
     },
     NewDeck: {
-        screen: NewDeck,
+        screen: AddDeck,
         navigationOptions: {
             tabBarLabel: 'NewDeck',
         }
