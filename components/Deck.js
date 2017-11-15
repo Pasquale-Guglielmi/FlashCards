@@ -31,7 +31,7 @@ class Deck extends Component {
 const styles = StyleSheet.create({
     small: {
         fontSize: 16,
-        color: '#666',
+        color: '#888',
     },
     title: {
         fontSize: 26,
