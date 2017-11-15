@@ -6,8 +6,9 @@ import {
     Platform,
     StatusBar, } from 'react-native'
 import { Constants } from 'expo'
-import { TabNavigator } from 'react-navigation'
+import { TabNavigator, StackNavigator } from 'react-navigation'
 import Decks from './components/Decks'
+import DeckDetail from './components/DeckDetail'
 
 function MyStatusBar ({ backgroundColor, ...props }) {
     return (
@@ -51,12 +52,30 @@ const Tabs = TabNavigator({
     }
 });
 
+const MainNavigator = StackNavigator({
+    Home: {
+        screen: Tabs,
+        navigationOptions: {
+            title: 'Home'
+        }
+    },
+    DeckDetail: {
+        screen: DeckDetail,
+        navigationOptions: {
+            headerTintColor: '#fff',
+            headerStyle: {
+                backgroundColor: '#4e4cb8'
+            }
+        }
+    }
+})
+
 export default class App extends React.Component {
   render() {
     return (
       <View style={{flex: 1}}>
         <MyStatusBar backgroundColor='#4e4cb8' barStyle='light-content'/>
-        <Tabs />
+        <MainNavigator />
       </View>
     );
   }

@@ -10,7 +10,7 @@ import {
 class Deck extends Component {
     handlePress = () => {
         const { entry, navigation } = this.props
-        return navigation.navigate('NewDeck', { entry: entry })
+        return navigation.navigate('DeckDetail', { entry: entry })
     }
     render() {
     const { entry } = this.props
