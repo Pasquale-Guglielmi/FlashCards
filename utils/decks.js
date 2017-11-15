@@ -30,6 +30,19 @@ function setDummyData() {
                 }
             ]
         },
+        JavaScript: {
+            title: 'JavaScript',
+            questions: [
+                {
+                    question: 'If you bind a function you cannot pass additional arguments to it',
+                    answer: 'no'
+                },
+                {
+                    question: 'A function is just an object',
+                    answer: 'yes'
+                }
+            ]
+        },
     };
     AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(dummyData))
 

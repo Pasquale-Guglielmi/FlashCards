@@ -2,7 +2,9 @@ import React, { Component } from 'react'
 import {
     StyleSheet,
     View,
-    Text, } from 'react-native'
+    Text,
+    ScrollView
+} from 'react-native'
 import { fetchDecksResults } from '../utils/api'
 import Deck from './Deck'
 
@@ -20,6 +22,7 @@ class Decks extends React.Component {
     }
     render() {
         const { entries } = this.state
+        const { navigation } = this.props
         if(!entries) {
             return (
                 <View style={styles.container}>
@@ -33,9 +36,9 @@ class Decks extends React.Component {
             )
         }
         return (
-            <View>
-                {Object.keys(entries).map((key) => <Deck entry={entries[key]} key={key} />)}
-            </View>
+            <ScrollView>
+                {Object.keys(entries).map((key) => <Deck navigation={navigation} entry={entries[key]} key={key} />)}
+            </ScrollView>
         )
     }
 }
