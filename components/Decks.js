@@ -12,13 +12,19 @@ class Decks extends React.Component {
     state = {
         entries: null,
     }
-    componentDidMount() {
-        fetchDecksResults()
+    updateDecksList() {
+        return fetchDecksResults()
             .then((entries) => {
                 this.setState({
-                    entries: entries
-                })
+                entries: entries
             })
+        })
+    }
+    componentWillReceiveProps(nextProps) {
+        this.updateDecksList()
+    }
+    componentDidMount() {
+        this.updateDecksList()
     }
     render() {
         const { entries } = this.state
@@ -37,7 +43,9 @@ class Decks extends React.Component {
         }
         return (
             <ScrollView>
-                {Object.keys(entries).map((key) => <Deck navigation={navigation} entry={entries[key]} key={key} />)}
+                {Object.keys(entries).map((key) => {
+                    return <Deck navigation={navigation} entry={entries[key]} key={key} />
+                })}
             </ScrollView>
         )
     }
