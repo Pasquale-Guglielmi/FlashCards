@@ -7,40 +7,89 @@ import {
     TouchableOpacity,
     Animated,
     ScrollView,
+    ActivityIndicator,
 } from 'react-native'
 
 class Quiz extends Component {
     state = {
         opacity: new Animated.Value(0),
+        progress: 0,
+        total: null,
+        score: 0,
+        questions: null,
+        finish: false,
+        displayAnswer: false,
+    }
+    goNext() {
+
+    }
+    startQuiz() {
+        const { entry } = this.props.navigation.state.params
+        const { questions } = entry
+        const total = questions.length
+        this.setState({questions, total})
     }
     submitAnswer(answer) {
         alert(answer)
+    }
+    turnCard() {
+        const { displayAnswer } = this.state
+        this.setState({displayAnswer: !displayAnswer})
     }
     componentDidMount() {
         const { opacity } = this.state
         Animated.timing(opacity, {toValue: 1, duration: 800})
             .start()
+        this.startQuiz()
     }
     render() {
-        const { entry } = this.props.navigation.state.params
-        const { opacity } = this.state
+        const { questions, opacity, progress, total, displayAnswer } = this.state
+        if(total === null) {
+            return (
+              <ActivityIndicator
+                animating={true}
+                style={[styles.centering, {height: 80}]}
+                size="large"
+              />
+            )
+        }
+        if(total === 0) {
+            return (
+                <View style={styles.container}>
+                    <Text style={styles.noDataText}>
+                        Sorry, this deck has no cards!
+                    </Text>
+                    <Text>
+                        Add one from the previous page!
+                    </Text>
+                </View>
+            )
+        }
         return (
             <ScrollView style={{backgroundColor: '#fff'}}>
                 <Animated.View style={[styles.container, {opacity}]}>
                     <View>
-                        <Text>score/score</Text>
+                        <Text style={styles.progress}>{progress + '/' + total}</Text>
                     </View>
                     <View style={styles.info}>
-                        <Text style={styles.title}>{entry.title}</Text>
-                        <Text style={styles.small}>{entry.questions.length + ' cards'}</Text>
+                        <Text style={styles.title}>
+                            {displayAnswer
+                                ? questions[progress].answer
+                                : questions[progress].question}
+                        </Text>
+                        <TouchableOpacity onPress={this.turnCard.bind(this)}>
+                            <Text style={styles.small}>
+                                {displayAnswer ? 'show question' : 'show answer'}
+                            </Text>
+                        </TouchableOpacity>
                     </View>
                     <View style={styles.actions}>
                         <TouchableOpacity style={styles.button}
-                            onPress={this.submitAnswer(true)}>
+                            onPress={() => this.submitAnswer(true)}>
                             <Text style={styles.btnText}>True</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={[styles.button, {backgroundColor: '#111'}]}
-                            onPress={this.submitAnswer(false)}>
+                            onPress={() => this.submitAnswer(false)}>
                             <Text style={[styles.btnText, {color: '#fff'}]}>False</Text>
                         </TouchableOpacity>
                     </View>
@@ -51,6 +100,10 @@ class Quiz extends Component {
 }
 
 const styles = StyleSheet.create({
+    progress: {
+        paddingTop: 10,
+        fontSize: 20,
+    },
     actions: {
         flex: 1,
         alignItems: 'center',
@@ -89,11 +142,12 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     title: {
-        fontSize: 46,
+        fontSize: 36,
         paddingTop: 20,
         paddingBottom:20,
         color: '#222',
         fontWeight: 'bold',
+        textAlign: 'center',
     },
     container: {
         flex: 1,
@@ -106,6 +160,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         padding: 8,
     },
+    noDataText: {
+      fontSize: 30,
+      fontWeight: '300',
+      textAlign: 'center',
+    }
 })
 
 export default Quiz
