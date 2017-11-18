@@ -95,16 +95,17 @@ class Quiz extends Component {
                     onRequestClose={() => {alert("Modal has been closed.")}}
                 >
                     <View style={styles.container}>
-                        <View>
-                            <Text>
-                                {'Your score: ' + (score / total)*100 + '%'}
-                            </Text>
-                            <TouchableHighlight onPress={() => {
-                                this.setModalVisible(!modalVisible)
-                            }}>
-                            <Text>Hide Modal</Text>
-                        </TouchableHighlight>
-
+                        <Text style={styles.title}>
+                            {'Your score: ' + (score / total)*100 + '%'}
+                        </Text>
+                        <View style={styles.actions}>
+                            <TouchableOpacity style={styles.button}>
+                                <Text style={styles.btnText}>GO BACK</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={[styles.button, {backgroundColor: '#111'}]}
+                                onPress={() => {this.setModalVisible(!modalVisible)}}>
+                                <Text style={[styles.btnText, {color: '#fff'}]}>RESTART</Text>
+                            </TouchableOpacity>
                         </View>
                     </View>
                 </Modal>
