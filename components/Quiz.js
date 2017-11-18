@@ -17,11 +17,13 @@ class Quiz extends Component {
         total: null,
         score: 0,
         questions: null,
-        finish: false,
         displayAnswer: false,
     }
     goNext() {
-
+        const { progress, total } = this.state
+        if((progress + 1) === total) {
+            return this.finishQuiz()
+        }
     }
     startQuiz() {
         const { entry } = this.props.navigation.state.params
@@ -29,8 +31,20 @@ class Quiz extends Component {
         const total = questions.length
         this.setState({questions, total})
     }
-    submitAnswer(answer) {
-        alert(answer)
+    finishQuiz() {
+        const { score } = this.state
+        const { navigation } = this.props
+        const { entry } = navigation.state.params
+        alert(score)
+    }
+    submitHandler(answer) {
+        const { questions, progress, score } = this.state
+        const question = questions[progress]
+        if(answer == question.answer) {
+            return this.setState({score: score + 1}, this.goNext)
+        } else {
+            return this.goNext()
+        }
     }
     turnCard() {
         const { displayAnswer } = this.state
@@ -69,12 +83,12 @@ class Quiz extends Component {
             <ScrollView style={{backgroundColor: '#fff'}}>
                 <Animated.View style={[styles.container, {opacity}]}>
                     <View>
-                        <Text style={styles.progress}>{progress + '/' + total}</Text>
+                        <Text style={styles.progress}>{(progress + 1 ) + '/' + total}</Text>
                     </View>
                     <View style={styles.info}>
                         <Text style={styles.title}>
                             {displayAnswer
-                                ? questions[progress].answer
+                                ? (questions[progress].answer + '')
                                 : questions[progress].question}
                         </Text>
                         <TouchableOpacity onPress={this.turnCard.bind(this)}>
@@ -85,11 +99,11 @@ class Quiz extends Component {
                     </View>
                     <View style={styles.actions}>
                         <TouchableOpacity style={styles.button}
-                            onPress={() => this.submitAnswer(true)}>
+                            onPress={() => this.submitHandler(true)}>
                             <Text style={styles.btnText}>True</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={[styles.button, {backgroundColor: '#111'}]}
-                            onPress={() => this.submitAnswer(false)}>
+                            onPress={() => this.submitHandler(false)}>
                             <Text style={[styles.btnText, {color: '#fff'}]}>False</Text>
                         </TouchableOpacity>
                     </View>
