@@ -22,6 +22,12 @@ class Quiz extends Component {
         displayAnswer: false,
         modalVisible: false,
     }
+    goBackToDeck() {
+        const { navigation } = this.props
+        const { entry } = navigation.state.params
+        const deckKey = entry.title
+        return navigation.goBack()
+    }
     restartQuiz() {
         this.setState({
             progress: 0,
@@ -106,7 +112,8 @@ class Quiz extends Component {
                             </Text>
                         </View>
                         <View style={styles.actions}>
-                            <TouchableOpacity style={styles.button}>
+                            <TouchableOpacity style={styles.button}
+                                onPress={this.goBackToDeck.bind(this)}>
                                 <Text style={styles.btnText}>GO BACK</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={[styles.button, {backgroundColor: '#111'}]}

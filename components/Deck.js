@@ -9,9 +9,9 @@ import {
 
 class Deck extends Component {
     handlePress = () => {
-        const { entry, navigation, update } = this.props
+        const { entry, navigation } = this.props
         const deckKey = entry.title
-        return navigation.navigate('DeckDetail', { entry: entry, update: update, deckKey })
+        return navigation.navigate('DeckDetail', { entry, deckKey})
     }
     render() {
     const { entry } = this.props
