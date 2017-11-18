@@ -34,10 +34,10 @@ class Quiz extends Component {
         this.setState({questions, total})
     }
     finishQuiz() {
-        const { score } = this.state
+        const { score, total } = this.state
         const { navigation } = this.props
         const { entry } = navigation.state.params
-        alert(score)
+        alert('Your score: ' + (score / total)*100 + '%')
     }
     submitHandler(answer) {
         const { questions, progress, score } = this.state
