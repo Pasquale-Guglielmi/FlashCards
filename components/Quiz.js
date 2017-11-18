@@ -5,9 +5,11 @@ import {
     Text,
     Platform,
     TouchableOpacity,
+    TouchableHighlight,
     Animated,
     ScrollView,
     ActivityIndicator,
+    Modal,
 } from 'react-native'
 
 class Quiz extends Component {
@@ -18,6 +20,10 @@ class Quiz extends Component {
         score: 0,
         questions: null,
         displayAnswer: false,
+        modalVisible: false,
+    }
+    setModalVisible(visible) {
+        this.setState({modalVisible: visible});
     }
     goNext() {
         const { progress, total } = this.state
@@ -34,10 +40,10 @@ class Quiz extends Component {
         this.setState({questions, total})
     }
     finishQuiz() {
-        const { score, total } = this.state
+        const { modalVisible } = this.state
         const { navigation } = this.props
         const { entry } = navigation.state.params
-        alert('Your score: ' + (score / total)*100 + '%')
+        this.setModalVisible(true)
     }
     submitHandler(answer) {
         const { questions, progress, score } = this.state
@@ -59,7 +65,7 @@ class Quiz extends Component {
         this.startQuiz()
     }
     render() {
-        const { questions, opacity, progress, total, displayAnswer } = this.state
+        const { questions, opacity, progress, score, total, displayAnswer, modalVisible } = this.state
         if(total === null) {
             return (
               <ActivityIndicator
@@ -83,6 +89,25 @@ class Quiz extends Component {
         }
         return (
             <ScrollView style={{backgroundColor: '#fff'}}>
+                <Modal
+                    animationType="slide"
+                    visible={modalVisible}
+                    onRequestClose={() => {alert("Modal has been closed.")}}
+                >
+                    <View style={styles.container}>
+                        <View>
+                            <Text>
+                                {'Your score: ' + (score / total)*100 + '%'}
+                            </Text>
+                            <TouchableHighlight onPress={() => {
+                                this.setModalVisible(!modalVisible)
+                            }}>
+                            <Text>Hide Modal</Text>
+                        </TouchableHighlight>
+
+                        </View>
+                    </View>
+                </Modal>
                 <Animated.View style={[styles.container, {opacity}]}>
                     <View>
                         <Text style={styles.progress}>{(progress + 1 ) + '/' + total}</Text>
