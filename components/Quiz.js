@@ -22,8 +22,13 @@ class Quiz extends Component {
         displayAnswer: false,
         modalVisible: false,
     }
-    setModalVisible(visible) {
-        this.setState({modalVisible: visible});
+    restartQuiz() {
+        this.setState({
+            progress: 0,
+            score: 0,
+            displayAnswer: false,
+            modalVisible: false,
+        })
     }
     goNext() {
         const { progress, total } = this.state
@@ -43,7 +48,7 @@ class Quiz extends Component {
         const { modalVisible } = this.state
         const { navigation } = this.props
         const { entry } = navigation.state.params
-        this.setModalVisible(true)
+        this.setState({modalVisible: true})
     }
     submitHandler(answer) {
         const { questions, progress, score } = this.state
@@ -95,15 +100,17 @@ class Quiz extends Component {
                     onRequestClose={() => {alert("Modal has been closed.")}}
                 >
                     <View style={styles.container}>
-                        <Text style={styles.title}>
-                            {'Your score: ' + (score / total)*100 + '%'}
-                        </Text>
+                        <View style={styles.info}>
+                            <Text style={styles.title}>
+                                {'Your score: ' + (score / total)*100 + '%'}
+                            </Text>
+                        </View>
                         <View style={styles.actions}>
                             <TouchableOpacity style={styles.button}>
                                 <Text style={styles.btnText}>GO BACK</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={[styles.button, {backgroundColor: '#111'}]}
-                                onPress={() => {this.setModalVisible(!modalVisible)}}>
+                                onPress={this.restartQuiz.bind(this)}>
                                 <Text style={[styles.btnText, {color: '#fff'}]}>RESTART</Text>
                             </TouchableOpacity>
                         </View>
