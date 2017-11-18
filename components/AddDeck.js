@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   submit: {
-    borderRadius: 10,
+    borderRadius: 3,
     borderWidth: 1,
     borderColor: '#111',
     padding: 10,
@@ -97,7 +97,6 @@ const styles = StyleSheet.create({
     paddingRight: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 1,
     width: 200,
   },
 });

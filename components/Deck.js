@@ -19,7 +19,7 @@ class Deck extends Component {
         return (
             <View style={styles.item}>
                 <TouchableOpacity
-                    style={[styles.container, {backgroundColor: '#efefef'}]}
+                    style={[styles.container, {backgroundColor: '#fff'}]}
                     onPress={this.handlePress}>
                     <Text style={styles.title}>{entry.title}</Text>
                     <Text style={styles.small}>{cardsCount + ' cards'}</Text>
@@ -44,9 +44,7 @@ const styles = StyleSheet.create({
         height: 160,
         marginLeft: 20,
         marginRight: 20,
-        marginTop: 20,
-        borderBottomColor: '#bbb',
-        borderBottomWidth: 2,
+        marginTop: 30,
         justifyContent: 'center',
     },
     container: {
@@ -54,6 +52,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
+        borderRadius: 3,
     },
 })
 

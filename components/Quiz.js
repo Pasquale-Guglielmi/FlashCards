@@ -112,13 +112,14 @@ class Quiz extends Component {
                             </Text>
                         </View>
                         <View style={styles.actions}>
-                            <TouchableOpacity style={styles.button}
+                            <TouchableOpacity
+                                style={[styles.button, styles.border]}
                                 onPress={this.goBackToDeck.bind(this)}>
-                                <Text style={styles.btnText}>GO BACK</Text>
+                                <Text style={[styles.btnText, {color: '#111'}]}>Back To Deck</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={[styles.button, {backgroundColor: '#111'}]}
                                 onPress={this.restartQuiz.bind(this)}>
-                                <Text style={[styles.btnText, {color: '#fff'}]}>RESTART</Text>
+                                <Text style={[styles.btnText, {color: '#fff'}]}>Restart Quiz</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -142,11 +143,11 @@ class Quiz extends Component {
                     <View style={styles.actions}>
                         <TouchableOpacity style={styles.button}
                             onPress={() => this.submitHandler(true)}>
-                            <Text style={styles.btnText}>True</Text>
+                            <Text style={styles.btnText}>Correct</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={[styles.button, {backgroundColor: '#111'}]}
+                        <TouchableOpacity style={[styles.button, {backgroundColor: '#c11'}]}
                             onPress={() => this.submitHandler(false)}>
-                            <Text style={[styles.btnText, {color: '#fff'}]}>False</Text>
+                            <Text style={styles.btnText}>Incorrect</Text>
                         </TouchableOpacity>
                     </View>
                 </Animated.View>
@@ -167,23 +168,27 @@ const styles = StyleSheet.create({
         marginTop: 40,
         marginBottom:40,
     },
-    button: {
-        borderRadius: 10,
+    border: {
+        backgroundColor: '#fff',
+        borderRadius: 3,
         borderWidth: 1,
         borderColor: '#111',
+    },
+    button: {
         padding: 10,
         marginBottom: 20,
-        backgroundColor: '#fff',
+        backgroundColor: '#181',
         paddingLeft: 10,
         paddingRight: 10,
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 1,
+        borderRadius: 3,
         width: 250,
     },
     btnText: {
         fontSize: 36,
         fontWeight: '100',
+        color: '#fff'
     },
     info: {
         flex: 1,
@@ -194,7 +199,7 @@ const styles = StyleSheet.create({
     },
     small: {
         fontSize: 26,
-        color: '#888',
+        color: '#c11',
         fontWeight: 'bold',
     },
     title: {

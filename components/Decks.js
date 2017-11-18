@@ -48,7 +48,7 @@ class Decks extends React.Component {
         }
         return (
             <ScrollView>
-                <View style={{marginBottom: 100}}>
+                <View style={{paddingBottom: 100, backgroundColor: '#2e2c77'}}>
                     {Object.keys(entries).map((key) => {
                         return (
                             <Deck
