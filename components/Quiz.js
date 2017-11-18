@@ -23,6 +23,8 @@ class Quiz extends Component {
         const { progress, total } = this.state
         if((progress + 1) === total) {
             return this.finishQuiz()
+        } else {
+            return this.setState({progress: progress + 1})
         }
     }
     startQuiz() {
