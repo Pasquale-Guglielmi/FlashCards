@@ -7,68 +7,41 @@ import {
     TouchableOpacity,
     Animated,
     ScrollView,
-    ActivityIndicator,
 } from 'react-native'
-import { fetchDeck } from '../utils/api'
 
-class DeckDetail extends Component {
+class Quiz extends Component {
     state = {
         opacity: new Animated.Value(0),
-        entry: null,
     }
-    static navigationOptions = ({ navigation }) => {
-        const { entry } = navigation.state.params
-        return {
-            title: entry.title
-        }
-    }
-    addCard() {
-        const { navigation } = this.props
-        const { entry } = navigation.state.params
-        navigation.navigate('AddCard', {
-            entry: entry,
-            updateDeck: this.updateDeckDetails.bind(this)
-        })
-    }
-    updateDeckDetails() {
-        const { deckKey } = this.props.navigation.state.params
-        return fetchDeck(deckKey).then((deck) => {
-            this.setState({entry: deck})
-        })
+    submitAnswer(answer) {
+        alert(answer)
     }
     componentDidMount() {
-        this.updateDeckDetails()
         const { opacity } = this.state
         Animated.timing(opacity, {toValue: 1, duration: 800})
             .start()
     }
     render() {
-        const { entry } = this.state
+        const { entry } = this.props.navigation.state.params
         const { opacity } = this.state
-        const { navigation } = this.props
-        if(entry === null) {
-            return (
-              <ActivityIndicator
-                animating={true}
-                style={[styles.centering, {height: 80}]}
-                size="large"
-              />
-            )
-        }
         return (
             <ScrollView style={{backgroundColor: '#fff'}}>
                 <Animated.View style={[styles.container, {opacity}]}>
+                    <View>
+                        <Text>score/score</Text>
+                    </View>
                     <View style={styles.info}>
                         <Text style={styles.title}>{entry.title}</Text>
                         <Text style={styles.small}>{entry.questions.length + ' cards'}</Text>
                     </View>
                     <View style={styles.actions}>
-                        <TouchableOpacity style={styles.button} onPress={this.addCard.bind(this)}>
-                            <Text style={styles.btnText}>Add Card</Text>
+                        <TouchableOpacity style={styles.button}
+                            onPress={this.submitAnswer(true)}>
+                            <Text style={styles.btnText}>True</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={[styles.button, {backgroundColor: '#111'}]}
-                            onPress={() => navigation.navigate('Quiz', {entry: entry})}>
-                            <Text style={[styles.btnText, {color: '#fff'}]}>Start Quiz</Text>
+                            onPress={this.submitAnswer(false)}>
+                            <Text style={[styles.btnText, {color: '#fff'}]}>False</Text>
                         </TouchableOpacity>
                     </View>
                 </Animated.View>
@@ -135,4 +108,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default DeckDetail
+export default Quiz
