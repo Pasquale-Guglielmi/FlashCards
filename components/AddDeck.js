@@ -19,14 +19,20 @@ class AddDeck extends Component {
 
     handleSubmit() {
         const { navigation } = this.props
-        const { text } = this.state
-
+        let { text } = this.state
+        text = text.replace(/^\s+|\s+$/g, "");
         this.setState({text: ''})
 
         submitEntryDeck(text).then((res) => {
             if(res === 'OK') {
                 return navigation.navigate('Decks', { update: true })
+            } else {
+                if(res === 'ERROR') {
+                    return alert('Sorry, an error occurred!')
+                }
             }
+            return alert(res)
+
         })
     }
     render() {
@@ -45,6 +51,7 @@ class AddDeck extends Component {
                             value={this.state.text}/>
                     </KeyboardAvoidingView>
                     <TouchableOpacity
+                        disabled={this.state.text === ''}
                         style={[styles.submit, {backgroundColor: '#111'}]}
                         onPress={this.handleSubmit.bind(this)}>
                         <Text style={[styles.btnText, {color: '#fff'}]}>SUBMIT</Text>

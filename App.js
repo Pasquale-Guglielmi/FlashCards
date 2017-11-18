@@ -10,6 +10,7 @@ import { TabNavigator, StackNavigator } from 'react-navigation'
 import Decks from './components/Decks'
 import DeckDetail from './components/DeckDetail'
 import AddDeck from './components/AddDeck'
+import AddCard from './components/AddCard'
 
 function MyStatusBar ({ backgroundColor, ...props }) {
     return (
@@ -54,6 +55,15 @@ const MainNavigator = StackNavigator({
     },
     DeckDetail: {
         screen: DeckDetail,
+        navigationOptions: {
+            headerTintColor: '#fff',
+            headerStyle: {
+                backgroundColor: '#4e4cb8'
+            }
+        }
+    },
+    AddCard: {
+        screen: AddCard,
         navigationOptions: {
             headerTintColor: '#fff',
             headerStyle: {

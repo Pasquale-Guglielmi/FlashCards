@@ -43,9 +43,17 @@ class Decks extends React.Component {
         }
         return (
             <ScrollView>
-                {Object.keys(entries).map((key) => {
-                    return <Deck navigation={navigation} entry={entries[key]} key={key} />
-                })}
+                <View style={{marginBottom: 100}}>
+                    {Object.keys(entries).map((key) => {
+                        return (
+                            <Deck
+                                update={this.updateDecksList.bind(this)}
+                                navigation={navigation}
+                                entry={entries[key]}
+                                key={key} />
+                        )
+                    })}
+                </View>
             </ScrollView>
         )
     }
