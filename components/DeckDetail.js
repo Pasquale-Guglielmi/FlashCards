@@ -24,16 +24,15 @@ class DeckDetail extends Component {
     }
     addCard() {
         const { navigation } = this.props
-        const { entry, update } = navigation.state.params
+        const { entry } = navigation.state.params
         navigation.navigate('AddCard', {
             entry: entry,
-            update: update,
             updateDeck: this.updateDeckDetails.bind(this)
         })
     }
     updateDeckDetails() {
-        const { entry } = this.props.navigation.state.params
-        return fetchDeck(entry.title).then((deck) => {
+        const { deckKey } = this.props.navigation.state.params
+        return fetchDeck(deckKey).then((deck) => {
             this.setState({entry: deck})
         })
     }

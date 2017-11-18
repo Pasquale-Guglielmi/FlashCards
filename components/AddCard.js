@@ -19,7 +19,7 @@ class AddCard extends Component {
 
     handleSubmit() {
         const { navigation } = this.props
-        const  { entry, update, updateDeck } = navigation.state.params
+        const  { entry, updateDeck } = navigation.state.params
         const newCard = {
             question: this.state.question,
             answer: this.state.answer,
@@ -29,7 +29,6 @@ class AddCard extends Component {
 
         return submitEntryCard(key, newCard).then((res) => {
             if(res === 'OK') {
-                update()
                 updateDeck()
                 alert('A new card was added to the deck: ' + key)
             } else {

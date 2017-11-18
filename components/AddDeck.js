@@ -11,6 +11,7 @@ import {
     KeyboardAvoidingView,
 } from 'react-native'
 import { submitEntryDeck } from '../utils/api'
+import { fetchDeck } from '../utils/api'
 
 class AddDeck extends Component {
     state = {
@@ -19,13 +20,16 @@ class AddDeck extends Component {
 
     handleSubmit() {
         const { navigation } = this.props
+        alert(JSON.stringify(navigation, null, 2))
         let { text } = this.state
         text = text.replace(/^\s+|\s+$/g, "");
         this.setState({text: ''})
 
-        submitEntryDeck(text).then((res) => {
+        return submitEntryDeck(text).then((res) => {
             if(res === 'OK') {
-                return navigation.navigate('Decks', { update: true })
+                return fetchDeck(text).then((deck) => {
+                    navigation.navigate('DeckDetail', { entry: deck, deckKey: text })
+                })
             } else {
                 if(res === 'ERROR') {
                     return alert('Sorry, an error occurred!')

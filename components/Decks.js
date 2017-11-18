@@ -3,7 +3,8 @@ import {
     StyleSheet,
     View,
     Text,
-    ScrollView
+    ScrollView,
+    ActivityIndicator,
 } from 'react-native'
 import { fetchDecksResults } from '../utils/api'
 import Deck from './Deck'
@@ -20,16 +21,23 @@ class Decks extends React.Component {
             })
         })
     }
-    componentWillReceiveProps(nextProps) {
-        this.updateDecksList()
-    }
     componentDidMount() {
         this.updateDecksList()
     }
     render() {
+        this.updateDecksList()
         const { entries } = this.state
         const { navigation } = this.props
-        if(!entries) {
+        if(entries === null) {
+            return (
+              <ActivityIndicator
+                animating={true}
+                style={[styles.centering, {height: 80}]}
+                size="large"
+              />
+            )
+        }
+        if(entries === {}) {
             return (
                 <View style={styles.container}>
                     <Text style={styles.noDataText}>
@@ -47,7 +55,6 @@ class Decks extends React.Component {
                     {Object.keys(entries).map((key) => {
                         return (
                             <Deck
-                                update={this.updateDecksList.bind(this)}
                                 navigation={navigation}
                                 entry={entries[key]}
                                 key={key} />
