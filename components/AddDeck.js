@@ -20,7 +20,6 @@ class AddDeck extends Component {
 
     handleSubmit() {
         const { navigation } = this.props
-        alert(JSON.stringify(navigation, null, 2))
         let { text } = this.state
         text = text.replace(/^\s+|\s+$/g, "");
         this.setState({text: ''})

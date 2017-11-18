@@ -21,9 +21,6 @@ class Decks extends React.Component {
             })
         })
     }
-    componentDidMount() {
-        this.updateDecksList()
-    }
     render() {
         this.updateDecksList()
         const { entries } = this.state
