@@ -4,45 +4,64 @@ export const DECKS_STORAGE_KEY = 'FlashCards:decks'
 
 function setDummyData() {
     let dummyData = {
-        React: {
-            title: 'React',
+        Animals: {
+            title: 'Animals',
             questions: [
                 {
-                    question: 'What is React?',
-                    answer: 'A library for managing user interfaces'
+                    question: 'Are all types of snakes poisonous?',
+                    answer: false
                 },
                 {
-                    question: 'Where do you make Ajax requests in React?',
-                    answer: 'The componentDidMount lifecycle event'
-                }
+                    question: 'Do camels store water in their humps?',
+                    answer: true
+                },
+                {
+                    question: 'Can an ostrich fly?',
+                    answer: false
+                },
+                {
+                    question: 'Can birds swim?',
+                    answer: true
+                },
             ]
         },
-        Redux: {
-            title: 'Redux',
+        Random: {
+            title: 'Random',
             questions: [
                 {
-                    question: 'Is Redux a library for managing state?',
-                    answer: 'yes'
+                    question: 'Lightning never strikes in the same place twice.',
+                    answer: false
                 },
                 {
-                    question: 'Do you use reducers to update State',
-                    answer: 'no'
-                }
-            ]
-        },
-        JavaScript: {
-            title: 'JavaScript',
-            questions: [
-                {
-                    question: 'If you bind a function you cannot pass additional arguments to it',
-                    answer: 'no'
+                    question: 'If you cry in space the tears just stick to your face.',
+                    answer: true
                 },
                 {
-                    question: 'A function is just an object',
-                    answer: 'yes'
+                    question: 'If you cut an earthworm in half, both halves can regrow their body.',
+                    answer: false
+                },
+                {
+                    question: 'Humans can distinguish between over a trillion different smells.',
+                    answer: true
+                },
+                {
+                    question: 'Adults have fewer bones than babies do.',
+                    answer: true
+                },
+                {
+                    question: 'Napoleon Bonaparte was extremely short.',
+                    answer: false
+                },
+                {
+                    question: 'Goldfish only have a memory of three seconds.',
+                    answer: false
+                },
+                {
+                    question: 'There are more cells of bacteria in your body than there are human cells.',
+                    answer: true
                 }
             ]
-        },
+        }
     };
     AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(dummyData))
 
