@@ -12,6 +12,7 @@ import DeckDetail from './components/DeckDetail'
 import AddDeck from './components/AddDeck'
 import AddCard from './components/AddCard'
 import Quiz from './components/Quiz'
+import { setNotification } from './utils/notifications'
 
 function MyStatusBar ({ backgroundColor, ...props }) {
     return (
@@ -81,6 +82,9 @@ const MainNavigator = StackNavigator({
 })
 
 export default class App extends React.Component {
+  componentDidMount() {
+    setNotification()
+  }
   render() {
     return (
       <View style={{flex: 1}}>

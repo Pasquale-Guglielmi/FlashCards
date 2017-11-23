@@ -11,6 +11,7 @@ import {
     ActivityIndicator,
     Modal,
 } from 'react-native'
+import { setNotification, clearNotifications } from '../utils/notifications'
 
 class Quiz extends Component {
     state = {
@@ -54,7 +55,10 @@ class Quiz extends Component {
         const { modalVisible } = this.state
         const { navigation } = this.props
         const { entry } = navigation.state.params
-        this.setState({modalVisible: true})
+        this.setState({modalVisible: true}, () => {
+            clearNotifications()
+                .then(setNotification)
+        })
     }
     submitHandler(answer) {
         const { questions, progress, score } = this.state
